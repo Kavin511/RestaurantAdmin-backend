@@ -22,7 +22,7 @@ exports.register = (req, res) => {
             })
         })        
     }).catch((err) => {
-        res.status(403).json({
+        res.status(err.status).json({
             success:false,
             msg:err
         });
@@ -36,7 +36,7 @@ exports.register = (req, res) => {
                 throw err
             }
             if (!user) {
-                res.status(403).send({
+                res.status(err.status).send({
                     success: false,
                     msg: 'Failed to authenticate,User not found' + req.body.mobileNumber
                 })
@@ -51,7 +51,7 @@ exports.register = (req, res) => {
                         })
                     }
                     else {
-                        res.status(403).send({
+                        res.status(err.status).send({
                             success: false,
                             msg: 'Failed to authenticate, wrong password'
                         })
@@ -82,7 +82,7 @@ exports.register = (req, res) => {
             }
         }, (err, user) => {
             if (err)
-                res.status(400).json({
+                res.status(err.status).json({
                     err: err
                 })
             else {
